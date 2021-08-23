@@ -1,0 +1,9 @@
+#content{
+    height: 600px;
+    background-image: url(./imgs/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+ th, td {
+    border: 1px solid black;
+  }

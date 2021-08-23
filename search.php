@@ -10,25 +10,35 @@
             <img class="" src="./imgs/logo.png" alt="">
             <div class="">
                 <div style="display:block; margin-bottom:5%">
-                    <a style="font-size:2rem" href="./index.php" >Home</a>
+                    <form action="" method="get"> <button class="bg-primary" name="home">Home</button></form>
                     <img style="width:8%" src="./imgs/230px-Flag_of_North_Vietnam_(1955–1976).svg.png" alt="">
                     <img style="width:8%" src="./imgs/tải xuống.png " alt="">
                 </div>
         </div>
-       
+       <?php
+       session_start();
+        if(isset($_GET['home'])){
+            if(!isset($_SESSION['login'])){
+                header('location:'.$SITEURL. 'admin.php' );
+            }
+            else{
+                header('location:'.$SITEURL. 'index.php' );
+            }
+        }
+       ?>
         </div class="">
-            <div class="h1 d-flex justify-content-center">Admin </div>
+            <div class="h1 d-flex justify-content-center">Search </div>
             <form action="" method="POST" class="form-group d-flex" style="margin-left:5%">
-                <input  type="text" placeholder="Search"  style= "width:30%; height:45px">
+                <input  type="text" placeholder="Search" name = "inputsearch" style= "width:30%; height:45px">
                 <div class="form-group" style="margin-left:2%">
-                    <select class="form-control" >
-                        <option value= "fullname">Họ và tên</option>
-                        <option value ="ofice">Chức vụ</option>
-                        <option value = "company">Cơ quan</option>
+                    <select class="form-control" name="selector" >
+                        <option value = "fullname">Họ và tên</option>
+                        <option value = "office" >Chức vụ</option>
+                        <option value = "company" >Cơ quan</option>
                     </select>
                 </div>
-                <button class="btn-danger" style="margin-left:2%" ><a style="color:white;" href="./search.php">Search</a></button>
-                <button class="btn-danger"  name="btntransfer" style="margin-left:2%">Insert</button>
+                <button class="btn-danger" style="margin-left:2%; " name="search">Search</button>
+               
             </form>
             <div id="content">
                  <table class="table">
@@ -44,14 +54,17 @@
                         </tr>
                     </thead>
                     <?php 
-                        include"./connect.php";
-                        if(isset($_POST['btntransfer'])){
-                            header('Location:http://localhost/test/insert.php');
+                    if(isset($_POST['search']))
+                        $selector = $_POST['selector'];
+                        $inputsearch = $_POST['inputsearch'];
+                        if($inputsearch=''){
+                            echo "nhap input";
                         }
+                        include"./connect.php";
                         $sql = "SELECT *
-                                  FROM phonebook, company 
-                                  where phonebook.id_company = company.id_company
-                                   ";
+                                  FROM phonebook
+                                  where fullname like '%$inputsearch%'
+                                  ";
                             //Execute the Query
                             $res = mysqli_query($conn, $sql);
                             // var_dump($res);
@@ -69,7 +82,7 @@
                                             <td><?php  echo $row['office']; ?></td>
                                             <td><?php  echo $row['email']; ?></td>
                                             <td><?php  echo $row['phone']; ?></td>
-                                            <td><?php  echo $row['name_company']; ?></td>
+                                            <td><?php  echo 'a' ?></td>
                                             <td><?php  echo $row['phone_company']; ?></td>
                                             <td><a href="update.php?id=<?php echo $row['id']; ?>">Edit</a></td>
                                             <td><a href="delete.php?id=<?php echo $row['id']; ?>">Delete</a></td>

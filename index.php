@@ -6,29 +6,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style.css">
     <body>
-    <div class="d-flex justify-content-between" style="margin-top:2%" >
+        <div class="d-flex justify-content-between" style="margin-top:2%" >
             <img class="" src="./imgs/logo.png" alt="">
             <div class="">
                 <div style="display:block; margin-bottom:5%">
-                    <a style="font-size:2rem" href="./index.php" >Home</a>
+                    <a style="font-size:2rem" href="./login.php" >Login</a>
                     <img style="width:8%" src="./imgs/230px-Flag_of_North_Vietnam_(1955–1976).svg.png" alt="">
                     <img style="width:8%" src="./imgs/tải xuống.png " alt="">
                 </div>
         </div>
        
         </div class="">
-            <div class="h1 d-flex justify-content-center">Admin </div>
-            <form action="" method="POST" class="form-group d-flex" style="margin-left:5%">
-                <input  type="text" placeholder="Search"  style= "width:30%; height:45px">
-                <div class="form-group" style="margin-left:2%">
-                    <select class="form-control" >
-                        <option value= "fullname">Họ và tên</option>
-                        <option value ="ofice">Chức vụ</option>
-                        <option value = "company">Cơ quan</option>
+            <div class="h1 d-flex justify-content-center">KHOA CÔNG NGHỆ THÔNG TIN </div>
+            <form action="" class="form-group d-flex" style="margin-left:5%">
+                <input  type="text" placeholder="Search" name = "search" style= "width:30%; height:45px">
+                <div class="form-group" >
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Họ và tên</option>
+                        <option>Chức vụ</option>
+                        <option>Cơ quan</option>
                     </select>
                 </div>
-                <button class="btn-danger" style="margin-left:2%" ><a style="color:white;" href="./search.php">Search</a></button>
-                <button class="btn-danger"  name="btntransfer" style="margin-left:2%">Insert</button>
+                <button class="btn-danger"><a style="color:white;" href="./search.php">Search</a></button>
+            
             </form>
             <div id="content">
                  <table class="table">
@@ -45,9 +45,6 @@
                     </thead>
                     <?php 
                         include"./connect.php";
-                        if(isset($_POST['btntransfer'])){
-                            header('Location:http://localhost/test/insert.php');
-                        }
                         $sql = "SELECT *
                                   FROM phonebook, company 
                                   where phonebook.id_company = company.id_company
@@ -61,28 +58,28 @@
 
                                     while($row = mysqli_fetch_assoc($res)){ 
                                         
-                                        $i=0; 
+                                        $i=0; $i = $i++;
                                         ?>
+                                        
                                        <tr>
-                                            <th scope="row"> <?php echo $row['id']; ?></th>
+
+                                            <th scope="row"><?php echo $i ;?></th>
                                             <td><?php  echo $row['fullname']; ?></td>
                                             <td><?php  echo $row['office']; ?></td>
                                             <td><?php  echo $row['email']; ?></td>
                                             <td><?php  echo $row['phone']; ?></td>
                                             <td><?php  echo $row['name_company']; ?></td>
                                             <td><?php  echo $row['phone_company']; ?></td>
-                                            <td><a href="update.php?id=<?php echo $row['id']; ?>">Edit</a></td>
-                                            <td><a href="delete.php?id=<?php echo $row['id']; ?>">Delete</a></td>
                                         </tr>
                                     <?php
-                                     $i++;
+                                    
                                     }
                                 }
                                 else{
-                                   
+                                    echo "k co csdl";
                                 }
-                                
                     ?>
+                        
                 </table>
             </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
